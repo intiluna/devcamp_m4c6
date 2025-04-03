@@ -14,7 +14,7 @@ En OOP, un programa o software se compone de muchos objetos individuales. Por ej
 
 Las **clases** en python se usan para crear objetos. Una manera de ver a las clases es como un molde de galleta y los objetos que creamos a partir de una clase, se les llama instancias que serian las galletas. Al proceso de crear los objetos a partir de una clase se le llama **instantiation**. Otro punto importante de recordar es quen con las clases se define el tipo de objeto y recuerda que con la función **type** se puede obtener la clase de objeto que para un objeto tipo string se obtiene "str".
 
-![Ejemplo de clase y objetos como si fueran molde y galletas](images/cookie_template.png)
+![Ejemplo de clase y objetos como si fueran molde y galletas (Tomado de snakebear.science)](images/cookie_template.png)
 
 
 ```{python}
@@ -181,5 +181,45 @@ Referencias
 
 
 ## 8. ¿Qué es un método dunder?
+
+Dunder viene de Double Underscore, es decir que son metodos que usan dos guiones abajo antes y despues (como _ _init _ _). Se les llama tambien metodos mágicos o especiales. En otros lenguajes como Java, se tiene métodos privados o protegidos pero no en python, y se crearon como una manera para que los usuarios y programadores no traten de modificarlo.
+
+Hay de diferentes tipos y la lista es muy larga. Para ver el detalle se puede ir a la [documentación oficial de Python](https://docs.python.org/3/reference/datamodel.html#specialnames). Algunas de los métodos mas comunes son:
+
+![Muestra de métodos dunder (tomado de RealPython)](images/dunder_methods_sample.png)
+
+
+
+Por ejemplo, el metodo "__str__" nos da un texto que representa al objeto.
+
+```{python}
+class Galleta:
+  tipo = "Dulce"             
+  forma_predeterminada = "Redonda"
+  
+  def __init__(self,nombre,color,olor,ingredientes):
+    self.nombre = nombre
+    self.color = color
+    self.olor = olor
+    self.ingredientes = ingredientes
+  
+  def __str__(self):
+    return f"Soy {self.nombre} y tengo un sabroso olor a {self.olor}. Deberias de probarme"
+
+galleta_avena = Galleta(nombre="Galleta de avena",
+                       color="claro",
+                       olor="canela y avena",
+                       ingredientes=["harina", "leche","avena","canela","azucar"])
+                      
+print(str(galleta_avena))
+```
+
+
+
+Referencia
+
+<https://realpython.com/python-magic-methods/>
+
+<https://docs.python.org/3/reference/datamodel.html#specialnames>
 
 ## 9. ¿Qué es un decorador de python?

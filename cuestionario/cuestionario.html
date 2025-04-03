@@ -116,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/cookie_template.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Ejemplo de clase y objetos como si fueran molde y galletas</figcaption>
+<figcaption class="figure-caption">Ejemplo de clase y objetos como si fueran molde y galletas (Tomado de snakebear.science)</figcaption>
 </figure>
 </div>
 <div class="cell" data-execution_count="1">
@@ -214,6 +214,42 @@ tipo:Dulce</code></pre>
 </section>
 <section id="qué-es-un-método-dunder" class="level2">
 <h2 class="anchored" data-anchor-id="qué-es-un-método-dunder">8. ¿Qué es un método dunder?</h2>
+<p>Dunder viene de Double Underscore, es decir que son metodos que usan dos guiones abajo antes y despues (como _ <em>init </em> _). Se les llama tambien metodos mágicos o especiales. En otros lenguajes como Java, se tiene métodos privados o protegidos pero no en python, y se crearon como una manera para que los usuarios y programadores no traten de modificarlo.</p>
+<p>Hay de diferentes tipos y la lista es muy larga. Para ver el detalle se puede ir a la <a href="https://docs.python.org/3/reference/datamodel.html#specialnames">documentación oficial de Python</a>. Algunas de los métodos mas comunes son:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/dunder_methods_sample.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Muestra de métodos dunder (tomado de RealPython)</figcaption>
+</figure>
+</div>
+<p>Por ejemplo, el metodo “<strong>str</strong>” nos da un texto que representa al objeto.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Galleta:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  tipo <span class="op">=</span> <span class="st">"Dulce"</span>             </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  forma_predeterminada <span class="op">=</span> <span class="st">"Redonda"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,nombre,color,olor,ingredientes):</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.nombre <span class="op">=</span> nombre</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.color <span class="op">=</span> color</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.olor <span class="op">=</span> olor</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.ingredientes <span class="op">=</span> ingredientes</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__str__</span>(<span class="va">self</span>):</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"Soy </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>nombre<span class="sc">}</span><span class="ss"> y tengo un sabroso olor a </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>olor<span class="sc">}</span><span class="ss">. Deberias de probarme"</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>galleta_avena <span class="op">=</span> Galleta(nombre<span class="op">=</span><span class="st">"Galleta de avena"</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>                       color<span class="op">=</span><span class="st">"claro"</span>,</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>                       olor<span class="op">=</span><span class="st">"canela y avena"</span>,</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>                       ingredientes<span class="op">=</span>[<span class="st">"harina"</span>, <span class="st">"leche"</span>,<span class="st">"avena"</span>,<span class="st">"canela"</span>,<span class="st">"azucar"</span>])</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>                      </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">str</span>(galleta_avena))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Soy Galleta de avena y tengo un sabroso olor a canela y avena. Deberias de probarme</code></pre>
+</div>
+</div>
+<p>Referencia</p>
+<p><a href="https://realpython.com/python-magic-methods/" class="uri">https://realpython.com/python-magic-methods/</a></p>
+<p><a href="https://docs.python.org/3/reference/datamodel.html#specialnames" class="uri">https://docs.python.org/3/reference/datamodel.html#specialnames</a></p>
 </section>
 <section id="qué-es-un-decorador-de-python" class="level2">
 <h2 class="anchored" data-anchor-id="qué-es-un-decorador-de-python">9. ¿Qué es un decorador de python?</h2>
