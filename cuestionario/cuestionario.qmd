@@ -8,23 +8,28 @@ editor: visual
 
 ## 1. ¿Para qué usamos Clases en Python?
 
+Object Oriented Programming (**OOP**) es una manera de diseñar software que nos permite pensar en complejos programas en terminos de objetos del mundo real. OOP permite crear programas complejos, reducir los errores y reduce la repeteción de código.
+
+En OOP, un programa o software se compone de muchos objetos individuales. Por ejemplo, un objeto en un programa basado en OOP puede ser una persona que tiene ciertos atributos (nombre, edad, dirección) y puede realizar ciertas acciones (caminar, hablar, respirar, comer, dormir).
+
+Las **clases** en python se usan para crear objetos. Una manera de ver a las clases es como un molde de galleta y los objetos que creamos a partir de una clase, se les llama instancias que serian las galletas. Al proceso de crear los objetos a partir de una clase se le llama **instantiation**. Otro punto importante de recordar es quen con las clases se define el tipo de objeto y recuerda que con la función **type** se puede obtener la clase de objeto que para un objeto tipo string se obtiene "str".
+
+![Ejemplo de clase y objetos como si fueran molde y galletas](images/cookie_template.png)
 
 
 ```{python}
 
-
-
-```
-
-
-
-```{python}
-
-
+my_cat = "Nala"
+print(type(my_cat))
 
 ```
+
 
 Referencias 
+
+<https://realpython.com/videos/what-object-oriented-programming-oop/>
+
+<https://snakebear.science/08-Classes/classes.html>
 
 ## 2. ¿Qué método se ejecuta automáticamente cuando se crea una instancia de una clase?
 
