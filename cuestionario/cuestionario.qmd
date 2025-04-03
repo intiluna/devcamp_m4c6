@@ -1,0 +1,136 @@
+---
+title: "Cuestionario Checkpoint 6"
+author: "Inti Luna"
+date: 2025-04-03
+format: html
+editor: visual
+---
+
+## 1. ¿Para qué usamos Clases en Python?
+
+
+
+```{python}
+
+
+
+```
+
+
+
+```{python}
+
+
+
+```
+
+Referencias 
+
+## 2. ¿Qué método se ejecuta automáticamente cuando se crea una instancia de una clase?
+
+
+
+```{python}
+
+
+
+
+```
+
+Texto
+
+```{python}
+
+
+
+
+```
+
+
+Referencias 
+
+
+
+
+
+## 3. ¿Cuáles son los tres verbos de API?
+
+
+
+
+```{python}
+
+```
+
+
+Referencias:
+
+
+## 4. ¿Es MongoDB una base de datos SQL o NoSQL?
+
+
+
+```{python}
+
+
+```
+
+
+```{python}
+
+
+```
+
+
+
+```{python}
+
+
+```
+
+
+
+```{python}
+
+
+```
+
+Texto
+
+```{python}
+
+```
+
+Referencias:
+
+
+
+
+
+## 5. ¿Qué es una API?
+
+
+
+```{python}
+
+```
+
+Texto
+
+```{python}
+
+```
+
+Referencias
+
+
+
+## 6.  ¿Qué es Postman?
+
+
+## 7. ¿Qué es el polimorfismo?
+
+
+## 8. ¿Qué es un método dunder?
+
+## 9. ¿Qué es un decorador de python?
