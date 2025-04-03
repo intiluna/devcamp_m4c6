@@ -198,6 +198,15 @@ Referencias:
 
 ## 6.  ¿Qué es Postman?
 
+Postman es un software y plataforma que nos permite realizar solicitudes a APIs y es una herramienta amigable para que desarrolladores puedan probar, desarrollar y monitorear APIs. Ademas, brinda a equipos otras funcionalidades avanzadas para mantener control de versiones y colaboración en equipos.
+
+A continuación uso la API de <https://api.open-meteo.com/v1/forecast?> para obtener datos de predicción del clima en Gernika.
+
+![Ejemplo de método GET en Postman](images/ejemplo_postman.png)
+
+Referencias
+
+<https://www.postman.com/product/what-is-postman/>
 
 ## 7. ¿Qué es el polimorfismo?
 
@@ -209,8 +218,6 @@ Dunder viene de Double Underscore, es decir que son metodos que usan dos guiones
 Hay de diferentes tipos y la lista es muy larga. Para ver el detalle se puede ir a la [documentación oficial de Python](https://docs.python.org/3/reference/datamodel.html#specialnames). Algunas de los métodos mas comunes son:
 
 ![Muestra de métodos dunder (tomado de RealPython)](images/dunder_methods_sample.png)
-
-
 
 Por ejemplo, el metodo "__str__" nos da un texto que representa al objeto.
 
