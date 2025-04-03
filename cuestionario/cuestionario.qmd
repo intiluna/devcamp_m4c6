@@ -104,15 +104,44 @@ Referencias
 
 ## 3. ¿Cuáles son los tres verbos de API?
 
+Application programming interface (API) o interfaz de programación de aplicaciones son mecanismos que permiten a dos componentes de software (aplicaciones) comunicarse entre sí mediante un conjunto de protocolos. Una manera de ver a una API es como un acuerdo donde se define como se deberia comunicarse con la interfaz, con la definición de las solicitudes y respuestas. La documentación de la API describe como los desarrolladores deben estructurar las solicitudes y las respuestas que obtendran.
 
+A la aplicación que envia la solicitud se le conoce como el cliente y a la que responde como el servidor. Con estos terminos se pueden describir diferentes tipos de arquitectura:
 
+**API de SOAP**
 
-```{python}
+Estas API utilizan el protocolo simple de acceso a objetos. El cliente y el servidor intercambian mensajes mediante XML. Se trata de una API menos flexible que era más popular en el pasado.
 
-```
+**API de RPC**
+
+Estas API se denominan llamadas a procedimientos remotos. El cliente completa una función (o procedimiento) en el servidor, y el servidor devuelve el resultado al cliente.
+
+**API de REST (Representational State Transfer)**
+
+Estas son las API más populares y flexibles que se encuentran en la web actualmente. El cliente envía las solicitudes al servidor como datos. El servidor utiliza esta entrada del cliente para iniciar funciones internas y devuelve los datos de salida al cliente. 
+
+**API de WebSocket**
+
+La API de WebSocket es otro desarrollo moderno de la API web que utiliza objetos JSON para transmitir datos. La API de WebSocket admite la comunicación bidireccional entre las aplicaciones cliente y el servidor. El servidor puede enviar mensajes de devolución de llamada a los clientes conectados, por lo que es más eficiente que la API de REST.
+
+Como hemos comentado **Rest API's** son las más comunes y estas API usan el protocolo HTTP que contempla varias acciones que se pueden realizar o métodos:
+
+**GET**. Se usa para leer información u obtener información de un recurso en un servidor sin modificarlo. Por ejemplo, podemos usar un GET para obtener del un API del servicio meteorologico, el prónostico del clima para el día de mañana.
+
+**POST**. Se usa para crear un nuevo recurso o registro. Por ejemplo, cuando creamos una cuenta en una web app, por detras el backend realiza una solicitud de POST a la base de datos en el servidor con nuestros datos para crear un nuevo usuario.
+
+**PUT** Se usa para actualizar o reemplazar un recurso con información nueva. Por ejemplo,este método se utiliza cuando actualizamos nuestros datos de contacto en un sitio web y en la solicitud se requiere el identificador del recurso a actualizar.
+
+**DELETE** Se usa para eliminar datos de una base de datos y para ello se envia un identificador del recurso al igual quen en DELETE.
 
 
 Referencias:
+
+<https://aws.amazon.com/what-is/api/>
+
+<https://blog.postman.com/what-are-http-methods/>
+
+<https://realpython.com/api-integration-in-python/>
 
 
 ## 4. ¿Es MongoDB una base de datos SQL o NoSQL?

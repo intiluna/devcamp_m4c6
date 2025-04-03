@@ -194,7 +194,25 @@ tipo:Dulce</code></pre>
 </section>
 <section id="cuáles-son-los-tres-verbos-de-api" class="level2">
 <h2 class="anchored" data-anchor-id="cuáles-son-los-tres-verbos-de-api">3. ¿Cuáles son los tres verbos de API?</h2>
+<p>Application programming interface (API) o interfaz de programación de aplicaciones son mecanismos que permiten a dos componentes de software (aplicaciones) comunicarse entre sí mediante un conjunto de protocolos. Una manera de ver a una API es como un acuerdo donde se define como se deberia comunicarse con la interfaz, con la definición de las solicitudes y respuestas. La documentación de la API describe como los desarrolladores deben estructurar las solicitudes y las respuestas que obtendran.</p>
+<p>A la aplicación que envia la solicitud se le conoce como el cliente y a la que responde como el servidor. Con estos terminos se pueden describir diferentes tipos de arquitectura:</p>
+<p><strong>API de SOAP</strong></p>
+<p>Estas API utilizan el protocolo simple de acceso a objetos. El cliente y el servidor intercambian mensajes mediante XML. Se trata de una API menos flexible que era más popular en el pasado.</p>
+<p><strong>API de RPC</strong></p>
+<p>Estas API se denominan llamadas a procedimientos remotos. El cliente completa una función (o procedimiento) en el servidor, y el servidor devuelve el resultado al cliente.</p>
+<p><strong>API de REST (Representational State Transfer)</strong></p>
+<p>Estas son las API más populares y flexibles que se encuentran en la web actualmente. El cliente envía las solicitudes al servidor como datos. El servidor utiliza esta entrada del cliente para iniciar funciones internas y devuelve los datos de salida al cliente.</p>
+<p><strong>API de WebSocket</strong></p>
+<p>La API de WebSocket es otro desarrollo moderno de la API web que utiliza objetos JSON para transmitir datos. La API de WebSocket admite la comunicación bidireccional entre las aplicaciones cliente y el servidor. El servidor puede enviar mensajes de devolución de llamada a los clientes conectados, por lo que es más eficiente que la API de REST.</p>
+<p>Como hemos comentado <strong>Rest API’s</strong> son las más comunes y estas API usan el protocolo HTTP que contempla varias acciones que se pueden realizar o métodos:</p>
+<p><strong>GET</strong>. Se usa para leer información u obtener información de un recurso en un servidor sin modificarlo. Por ejemplo, podemos usar un GET para obtener del un API del servicio meteorologico, el prónostico del clima para el día de mañana.</p>
+<p><strong>POST</strong>. Se usa para crear un nuevo recurso o registro. Por ejemplo, cuando creamos una cuenta en una web app, por detras el backend realiza una solicitud de POST a la base de datos en el servidor con nuestros datos para crear un nuevo usuario.</p>
+<p><strong>PUT</strong> Se usa para actualizar o reemplazar un recurso con información nueva. Por ejemplo,este método se utiliza cuando actualizamos nuestros datos de contacto en un sitio web y en la solicitud se requiere el identificador del recurso a actualizar.</p>
+<p><strong>DELETE</strong> Se usa para eliminar datos de una base de datos y para ello se envia un identificador del recurso al igual quen en DELETE.</p>
 <p>Referencias:</p>
+<p><a href="https://aws.amazon.com/what-is/api/" class="uri">https://aws.amazon.com/what-is/api/</a></p>
+<p><a href="https://blog.postman.com/what-are-http-methods/" class="uri">https://blog.postman.com/what-are-http-methods/</a></p>
+<p><a href="https://realpython.com/api-integration-in-python/" class="uri">https://realpython.com/api-integration-in-python/</a></p>
 </section>
 <section id="es-mongodb-una-base-de-datos-sql-o-nosql" class="level2">
 <h2 class="anchored" data-anchor-id="es-mongodb-una-base-de-datos-sql-o-nosql">4. ¿Es MongoDB una base de datos SQL o NoSQL?</h2>
