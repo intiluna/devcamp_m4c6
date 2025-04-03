@@ -132,8 +132,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="qué-método-se-ejecuta-automáticamente-cuando-se-crea-una-instancia-de-una-clase" class="level2">
 <h2 class="anchored" data-anchor-id="qué-método-se-ejecuta-automáticamente-cuando-se-crea-una-instancia-de-una-clase">2. ¿Qué método se ejecuta automáticamente cuando se crea una instancia de una clase?</h2>
-<p>Texto</p>
+<p>Para poder explicar mejor el método que se ejecuta para crear una instancia a partir de una clase vamos a ver como se define una clase y los diferentes elementos. Para crear una clase en python se usa la palabra reservada <strong>class</strong> seguida por el nombre de la clase con la primera letra en mayuscula.</p>
+<p>Recordamos que los metodos son un tipo de función que esta definida dentro de una clase y que opera sobre instancias de esa clase. En la clase hay un método especial que se llama iniciador o initializer y se define con <strong><code>_ _init_ _</code></strong>. Este método que en otros lenguajes se le llama constructor es llamado cuando se crea un objeto o instancia a partir de la clase. Con este método se define los atributos que va a tener el objeto creado a partir de la clase. Por ejemplo, definimos una clase Galleta con atributos como nombre, color, olor e ingredientes:</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Galleta:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,nombre,color,olor,ingredientes):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.nombre <span class="op">=</span> nombre</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.color <span class="op">=</span> color</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.olor <span class="op">=</span> olor</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.ingredientes <span class="op">=</span> ingredientes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En la definición de la clase se definen los atributos del objeto a crear. Es de notar que hay un atributo “self” que es una atributo usado para referenciar al propio objeto, por convención se usa “self” pero puede tener otro nombre y funcionar igual. En otras palabras estamos diciendo que a este objeto asignale al atributo nombre usando el argumento nombre que le pasamos al crear la instancia.</p>
+<p>Estos atributos hasta ahora definidos son especificos para cada objeto creado, pero hay otro tipo de atributo llamados atributos de clase que son comunes entre todos los objetos y que tiene valores predeterminados . Vamos a ver en nuestro ejemplo donde se definen y algunas posibilidades:</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Galleta:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  tipo <span class="op">=</span> <span class="st">"Dulce"</span>             </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  forma_predeterminada <span class="op">=</span> <span class="st">"Redonda"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,nombre,color,olor,ingredientes):</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.nombre <span class="op">=</span> nombre</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.color <span class="op">=</span> color</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.olor <span class="op">=</span> olor</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.ingredientes <span class="op">=</span> ingredientes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para crear un objeto a partir de esta clase le pasamos los atributos al nombre de la clase. En el siguiente ejemplo veremos como cada objeto creado tiene atributos de instancia especifico y atributos de clases comunes:</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>chocogalleta <span class="op">=</span> Galleta(nombre<span class="op">=</span><span class="st">"Chocogalleta"</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                       color<span class="op">=</span><span class="st">"oscuro"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                       olor<span class="op">=</span><span class="st">"chocolate"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                       ingredientes<span class="op">=</span>[<span class="st">"harina"</span>, <span class="st">"chocolate"</span>, <span class="st">"leche"</span>,<span class="st">"avena"</span>,<span class="st">"azucar"</span>])</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                    </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Atributos para Chocogalleta"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"color:</span><span class="sc">{</span>chocogalleta<span class="sc">.</span>color<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ingredientes:</span><span class="sc">{</span>chocogalleta<span class="sc">.</span>ingredientes<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"tipo:</span><span class="sc">{</span>chocogalleta<span class="sc">.</span>tipo<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>galleta_avena <span class="op">=</span> Galleta(nombre<span class="op">=</span><span class="st">"Galleta de avena"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                       color<span class="op">=</span><span class="st">"claro"</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                       olor<span class="op">=</span><span class="st">"canela y avena"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                       ingredientes<span class="op">=</span>[<span class="st">"harina"</span>, <span class="st">"leche"</span>,<span class="st">"avena"</span>,<span class="st">"canela"</span>,<span class="st">"azucar"</span>])</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                    </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Atributos para galleta de Avena"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"color:</span><span class="sc">{</span>galleta_avena<span class="sc">.</span>color<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ingredientes:</span><span class="sc">{</span>galleta_avena<span class="sc">.</span>ingredientes<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"tipo:</span><span class="sc">{</span>galleta_avena<span class="sc">.</span>tipo<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Atributos para Chocogalleta
+color:oscuro
+ingredientes:['harina', 'chocolate', 'leche', 'avena', 'azucar']
+tipo:Dulce
+Atributos para galleta de Avena
+color:claro
+ingredientes:['harina', 'leche', 'avena', 'canela', 'azucar']
+tipo:Dulce</code></pre>
+</div>
+</div>
 <p>Referencias</p>
+<p><a href="https://realpython.com/lessons/adding-attributes-python-class/" class="uri">https://realpython.com/lessons/adding-attributes-python-class/</a></p>
+<p><a href="https://snakebear.science/08-Classes/classes.html" class="uri">https://snakebear.science/08-Classes/classes.html</a></p>
 </section>
 <section id="cuáles-son-los-tres-verbos-de-api" class="level2">
 <h2 class="anchored" data-anchor-id="cuáles-son-los-tres-verbos-de-api">3. ¿Cuáles son los tres verbos de API?</h2>

@@ -33,29 +33,73 @@ Referencias
 
 ## 2. ¿Qué método se ejecuta automáticamente cuando se crea una instancia de una clase?
 
+Para poder explicar mejor el método que se ejecuta para crear una instancia a partir de una clase vamos a ver como se define una clase y los diferentes elementos. Para crear una clase en python se usa la palabra reservada **class** seguida por el nombre de la clase con la primera letra en mayuscula.
 
+Recordamos que los metodos son un tipo de función que esta definida dentro de una clase y que opera sobre instancias de esa clase. En la clase hay un método especial que se llama iniciador o initializer y se define con **`_ _init_ _`**. Este método que en otros lenguajes se le llama constructor es llamado cuando se crea un objeto o instancia a partir de la clase. Con este método se define los atributos que va a tener el objeto creado a partir de la clase. Por ejemplo, definimos una clase Galleta con atributos como nombre, color, olor e ingredientes:
 
 ```{python}
-
+class Galleta:
+  
+  def __init__(self,nombre,color,olor,ingredientes):
+    self.nombre = nombre
+    self.color = color
+    self.olor = olor
+    self.ingredientes = ingredientes
 
 
 
 ```
 
-Texto
+En la definición de la clase se definen los atributos del objeto a crear. Es de notar que hay un atributo "self" que es una atributo usado para referenciar al propio objeto, por convención se usa "self" pero puede tener otro nombre y funcionar igual. En otras palabras estamos diciendo que a este objeto asignale al atributo nombre usando el argumento nombre que le pasamos al crear la instancia.
+
+Estos atributos hasta ahora definidos son especificos para cada objeto creado, pero hay otro tipo de atributo llamados atributos de clase que son comunes entre todos los objetos y que tiene valores predeterminados . Vamos a ver en nuestro ejemplo donde se definen y algunas posibilidades:
 
 ```{python}
-
-
+class Galleta:
+  tipo = "Dulce"             
+  forma_predeterminada = "Redonda"
+  
+  def __init__(self,nombre,color,olor,ingredientes):
+    self.nombre = nombre
+    self.color = color
+    self.olor = olor
+    self.ingredientes = ingredientes
 
 
 ```
 
+Para crear un objeto a partir de esta clase le pasamos los atributos al nombre de la clase. En el siguiente ejemplo veremos como cada objeto creado tiene atributos de instancia especifico y atributos de clases comunes:
 
-Referencias 
+```{python}
 
 
+chocogalleta = Galleta(nombre="Chocogalleta",
+                       color="oscuro",
+                       olor="chocolate",
+                       ingredientes=["harina", "chocolate", "leche","avena","azucar"])
+                    
+print("Atributos para Chocogalleta")
+print(f"color:{chocogalleta.color}")
+print(f"ingredientes:{chocogalleta.ingredientes}")
+print(f"tipo:{chocogalleta.tipo}")
 
+galleta_avena = Galleta(nombre="Galleta de avena",
+                       color="claro",
+                       olor="canela y avena",
+                       ingredientes=["harina", "leche","avena","canela","azucar"])
+                    
+print("Atributos para galleta de Avena")
+print(f"color:{galleta_avena.color}")
+print(f"ingredientes:{galleta_avena.ingredientes}")
+print(f"tipo:{galleta_avena.tipo}")
+```
+
+
+Referencias
+
+<https://realpython.com/lessons/adding-attributes-python-class/>
+
+<https://snakebear.science/08-Classes/classes.html>
 
 
 ## 3. ¿Cuáles son los tres verbos de API?
