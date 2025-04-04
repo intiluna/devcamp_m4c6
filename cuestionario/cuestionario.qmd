@@ -205,6 +205,37 @@ Referencias
 
 ## 7. ¿Qué es el polimorfismo?
 
+En python, polimorfismo significa que un método, función u operador con el mismo nombre puede tomar diferentes formas o comportamientos.
+
+Un ejemplo es la funcion "leng()". En dependencia del objeto al que se aplica, el comportamiento es diferente:
+
+```{python}
+# string
+texto1 = "hola python"
+print(f"texto:{len(texto1)}")
+
+#list
+mi_dia = ["trabajar", "correr", "cocinar", "jugar", "dormir"]
+print(f"lista:{len(mi_dia)}")
+
+#tuple
+mytuple = ("apple", "banana", "cherry")
+
+print(f"tupla:{len(mytuple)}")
+
+#dictionary
+thisdict =	{
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+print(f"diccionario:{len(thisdict)}") 
+```
+
+Referencia
+
+<https://www.w3schools.com/python/python_polymorphism.asp>
 
 ## 8. ¿Qué es un método dunder?
 
