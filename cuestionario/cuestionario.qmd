@@ -126,41 +126,36 @@ Referencias:
 
 ## 4. ¿Es MongoDB una base de datos SQL o NoSQL?
 
+MongoDB es una base de datos NoSQL que significa "Not Only SQL" y es un tipo de base de datos que emplea un esquema flexible, permite almacenar, ingerir y recuperar datos no estructurados y semiestructurados. 
 
+En dependencia del caso de uso, se debe de elegir un tipo de base de datos u otra. En general se usan las bases de datos relacionales pero hay casos donde no son la mejor alternativa.
 
-```{python}
+Algunas propiedades de las bases NoSQL les hacen aptos para:
+- Hay muchos datos semiestructurados o no estructurados
+- Se requiere alta escalabilidad
+- No se conoce de antemano el esquema y/o requiere flexibilidad
+- Las relaciones entre tablas o entidades no es tan importante
 
+### Tipos de bases de datos NoSQL
 
-```
+Dentro de las bases de datos NoSQL se encuentran:
 
+**Documentos**.Almacena datos en objetos similares a JSON llamados documentos y al grupo se le conoce como colección.
 
-```{python}
+**Clave-Valor**. Se usan pares clave valor siendo la clave unica.
 
+**Familia de columnas**. Se organiza en columnas en lugar de filas.
 
-```
-
-
-
-```{python}
-
-
-```
-
-
-
-```{python}
-
-
-```
-
-Texto
-
-```{python}
-
-```
+**Datos de grafos**.Se almacenan en nodos y bordes
+En las bases de datos SQL o bases de datos relacionales se tiene un esquema rigido tabular y se puede analizar usando lenguaje SQL. En este tipo de bases de datos, lo primordial es la relación entre muchas entidades o tablas.
 
 Referencias:
 
+<https://www.mongodb.com/es/resources/basics/databases/nosql-explained/nosql-vs-sql>
+
+<https://sqlinsix.medium.com/when-to-use-sql-or-nosql-b50d4a52c157>
+
+<https://memgraph.com/blog/when-to-use-a-nosql-database>
 
 
 
@@ -242,7 +237,6 @@ galleta_avena = Galleta(nombre="Galleta de avena",
                       
 print(str(galleta_avena))
 ```
-
 
 
 Referencia
