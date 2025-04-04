@@ -246,3 +246,67 @@ Referencia
 <https://docs.python.org/3/reference/datamodel.html#specialnames>
 
 ## 9. ¿Qué es un decorador de python?
+
+Un decorador en python es una función que toma otra función y extiende o amplia el compartamiento
+sin modificarla explicitamente.
+
+En python, una función puede llamar a otra función.
+Vamos a ver un ejemplo de una función simple:
+
+```{python}
+
+def add_one(number):
+  return number + 1
+
+resultado = add_one(5)
+print(resultado)
+
+resultado2 = add_one(add_one(10))
+print(resultado2)
+
+
+```
+
+Tambien una función puede contener funciones internas. Por ejemplo:
+
+```{python}
+
+def parent():
+  print("printing inside parent function:")
+  
+  def first_child():
+    print("printing from first child function")
+  
+  first_child()
+  
+parent()
+
+
+```
+
+Ahora con estos conceptos podemos entender mejor que es un decorador. En el siguiente ejemplo se puede ver como una funcion puede extender las capacidades de otra función sin modificarla:
+
+```{python}
+
+def mi_decorador(func):
+  def wrapper():
+    print("no pasa nada")
+    func()
+    print("Algo ha pasado")
+  return wrapper
+  
+def hola():
+  print("Hola")
+
+hola_con_decorador = mi_decorador(hola)
+print(hola_con_decorador)
+hola_con_decorador()
+
+
+```
+
+
+
+Referencia
+
+<https://realpython.com/courses/python-decorators-101/>
