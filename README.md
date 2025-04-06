@@ -232,6 +232,8 @@ Referencias:
 <https://blog.postman.com/what-are-http-methods/>
 
 <https://realpython.com/api-integration-in-python/>
+
+
 ## 5. ¿Cuáles son los tres verbos de API?
 
 **Rest API’s** son las más comunes y estas API usan el **prótocolo
