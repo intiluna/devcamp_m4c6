@@ -24,6 +24,193 @@ print(type(my_cat))
 
 ```
 
+Pero si ya estas usando funciones y has programado por un tiempo con python es normal preguntarse ¿cuál es la ventaja de usar clases o cuando es recomendable usarlas? Yo me he hecho la misma pregunta y lo que he encontrado es que para código no muy complejo, no son necesarias, pero cuando se vuelve mas complejo las clases ayudan a mantener mejor organizadas las funciones asociadas y pueden evitar repetición.
+
+Por ejemplo, tengo un script donde cargo varias fuentes de datos y lo hago así:
+
+```{python}
+#| eval: false
+import pandas as pd
+import logging
+
+try:
+    best_setup_df = pd.read_csv(csv_best_setup)
+    print(f"reading best setup table: \n{best_setup_df.head(10)}")
+    logging.info(f"Read csv with best cropmask and season data: \n{csv_best_setup}")
+except Exception as e:
+    logging.error(f"Error reading csv with best cropmask and season data: {csv_best_setup}")
+
+# read conflict data
+try:
+    
+    conflict_data = pd.read_csv(conflicts_dir / conflict_file)
+    print(f"Conflict data read successfully: \n{conflict_data.head(10)}")
+    logging.info(f"Conflict data read successfully: \n{conflict_data.head(10)}")
+except Exception as e:
+    print(f"Error reading conflict data: {e}")
+    logging.error(f"Error reading conflict data: {e}")
+
+try:
+    calendar_data = pd.read_excel(calendar_file)
+    
+    print(f"Calendar data read successfully: \n{calendar_data.head(5)}")
+    logging.info(f"Calendar data read successfully: \n{calendar_data.head(5)}")
+except Exception as e:
+    print(f"Error reading calendar data: {e}")
+    logging.error(f"Error reading calendar data: {e}")
+
+
+try:
+    gdp_data = pd.read_csv(gdp_file)
+    
+    print(f"GDP data read successfully: \n{gdp_data.head(5)}")
+    logging.info(f"GDP data read successfully: \n{gdp_data.head(5)}")
+except Exception as e:
+    print(f"Error when opening GDP data: {e}")
+    logging.error(f"Error reading GDP data: {e}")
+    exit()
+
+```      
+
+Una manera de reducir la repetición del código es crear una función:
+
+```{python}
+#| eval: false
+import pandas as pd
+import logging
+
+def cargar_archivo(path, tipo="csv", nombre="", mostrar_head=True, exit_on_fail=False):
+    """
+    Load a file (CSV or Excel) and handle errors, logging and optional printing.
+    
+    Args:
+        path (Path or str): Path to the file
+        tipo (str): "csv" or "excel"
+        nombre (str): Descriptive name for logging/printing
+        mostrar_head (bool): Whether to print first few rows
+        exit_on_fail (bool): Whether to exit program if loading fails
+        
+    Returns:
+        DataFrame or None
+    """
+    try:
+        if tipo == "csv":
+            df = pd.read_csv(path)
+        elif tipo == "excel":
+            df = pd.read_excel(path)
+        else:
+            raise ValueError(f"Unsupported file type: {tipo}")
+        
+        if mostrar_head:
+            print(f"{nombre} loaded successfully:\n{df.head(5)}")
+        logging.info(f"{nombre} loaded from {path}")
+        return df
+    except Exception as e:
+        print(f"Error loading {nombre}: {e}")
+        logging.error(f"Error loading {nombre} from {path}: {e}")
+        if exit_on_fail:
+            exit()
+        return None
+
+
+```  
+
+Y para aplicarla sería:
+
+```{python}
+#| eval: false
+
+best_setup_df = cargar_archivo(csv_best_setup, tipo="csv", nombre="Best Setup Table")
+
+conflict_data = cargar_archivo(conflicts_dir / conflict_file, tipo="csv", nombre="Conflict Data")
+
+calendar_data = cargar_archivo(calendar_file, tipo="excel", nombre="Calendar Data")
+
+gdp_data = cargar_archivo(gdp_file, tipo="csv", nombre="GDP Data", exit_on_fail=True)
+
+```  
+
+Como se puede observar, hay una gran mejora y es más facil de leer código y mantener teniendo una sola función. 
+
+Ahora si tuvieramos una clase, primero hay que definirla:
+
+```{python}
+#| eval: false
+
+class DataManager:
+    def __init__(self, file_config):
+        """
+        file_config: dict where key is dataset name, and value is a dict with:
+            - 'path': path to file
+            - 'tipo': 'csv' or 'excel'
+            - 'exit_on_fail': bool
+        """
+        self.file_config = file_config
+        self.data = {}
+
+    def cargar_archivo(self, path, tipo="csv", nombre="", mostrar_head=True, exit_on_fail=False):
+        try:
+            if tipo == "csv":
+                df = pd.read_csv(path)
+            elif tipo == "excel":
+                df = pd.read_excel(path)
+            else:
+                raise ValueError(f"Unsupported file type: {tipo}")
+            
+            if mostrar_head:
+                print(f"{nombre} loaded successfully:\n{df.head(5)}")
+            logging.info(f"{nombre} loaded from {path}")
+            return df
+        except Exception as e:
+            print(f"Error loading {nombre}: {e}")
+            logging.error(f"Error loading {nombre} from {path}: {e}")
+            if exit_on_fail:
+                exit()
+            return None
+
+    def load_all(self):
+        for name, config in self.file_config.items():
+            path = config["path"]
+            tipo = config.get("tipo", "csv")
+            exit_on_fail = config.get("exit_on_fail", False)
+            df = self.cargar_archivo(path, tipo=tipo, nombre=name, exit_on_fail=exit_on_fail)
+            self.data[name] = df
+
+    def get(self, name):
+        return self.data.get(name)
+
+
+
+```  
+
+
+Y para usarla:
+
+```{python}
+#| eval: false
+
+file_config = {
+    "best_setup": {"path": csv_best_setup, "tipo": "csv"},
+    "conflict": {"path": conflicts_dir / conflict_file, "tipo": "csv"},
+    "calendar": {"path": calendar_file, "tipo": "excel"},
+    "gdp": {"path": gdp_file, "tipo": "csv", "exit_on_fail": True}
+}
+
+data_manager = DataManager(file_config)
+# cargamos todo de un solo
+data_manager.load_all()
+
+# Acceso a los datos:
+best_setup_df = data_manager.get("best_setup")
+conflict_data = data_manager.get("conflict")
+calendar_data = data_manager.get("calendar")
+gdp_data = data_manager.get("gdp")
+
+
+```  
+
+Como vemos, cuando usamos la clase, hay que definirla y puede tomar tiempo pero a cambio se gana en centralización y se tiene la capacidad de definir varias funciones (métodos) que estarian disponibles para todas las instancias sin necesidad de escribir argumentos extra como sería el caso de cuando creamos funciones sueltas. En algunos casos, no es necesario una clase pero cuando el control centralizado de las funciones, atributos y lógicas es importante, las clases pueden ahorrar tiempo, y facilitar mantenimiento y la lectura del código.
+
 
 Referencias 
 
@@ -31,7 +218,114 @@ Referencias
 
 <https://snakebear.science/08-Classes/classes.html>
 
-## 2. ¿Qué método se ejecuta automáticamente cuando se crea una instancia de una clase?
+<https://stackoverflow.com/questions/33072570/when-should-i-be-using-classes-in-python>
+
+## 2. ¿Qué es un método dunder?
+
+Dunder viene de Double Underscore, es decir que son metodos que usan dos guiones abajo antes y despues (como _ _init _ _). Se les llama tambien metodos mágicos o especiales. En otros lenguajes como Java, se tiene métodos privados o protegidos pero no en python, y se crearon como una manera para que los usuarios y programadores no traten de modificarlo.
+
+Hay de diferentes tipos y la lista es muy larga. Para ver el detalle se puede ir a la [documentación oficial de Python](https://docs.python.org/3/reference/datamodel.html#specialnames). Algunas de los métodos mas comunes son:
+
+![Muestra de métodos dunder (tomado de RealPython)](images/dunder_methods_sample.png)
+
+Por ejemplo, el metodo "__str__" nos da un texto que representa al objeto.
+
+```{python}
+class Galleta:
+  tipo = "Dulce"             
+  forma_predeterminada = "Redonda"
+  
+  def __init__(self,nombre,color,olor,ingredientes):
+    self.nombre = nombre
+    self.color = color
+    self.olor = olor
+    self.ingredientes = ingredientes
+  
+  def __str__(self):
+    return f"Soy {self.nombre} y tengo un sabroso olor a {self.olor}. Deberias de probarme"
+
+galleta_avena = Galleta(nombre="Galleta de avena",
+                       color="claro",
+                       olor="canela y avena",
+                       ingredientes=["harina", "leche","avena","canela","azucar"])
+                      
+print(str(galleta_avena))
+```
+
+
+Referencia
+
+<https://realpython.com/python-magic-methods/>
+
+<https://docs.python.org/3/reference/datamodel.html#specialnames>
+
+## 3. ¿Qué es un decorador de python?
+
+Un decorador en python es una función que toma otra función y extiende o amplia el compartamiento
+sin modificarla explicitamente.
+
+En python, una función puede llamar a otra función.
+Vamos a ver un ejemplo de una función simple:
+
+```{python}
+
+def add_one(number):
+  return number + 1
+
+resultado = add_one(5)
+print(resultado)
+
+resultado2 = add_one(add_one(10))
+print(resultado2)
+
+
+```
+
+Tambien una función puede contener funciones internas. Por ejemplo:
+
+```{python}
+
+def parent():
+  print("printing inside parent function:")
+  
+  def first_child():
+    print("printing from first child function")
+  
+  first_child()
+  
+parent()
+
+
+```
+
+Ahora con estos conceptos podemos entender mejor que es un decorador. En el siguiente ejemplo se puede ver como una funcion puede extender las capacidades de otra función sin modificarla:
+
+```{python}
+
+def mi_decorador(func):
+  def wrapper():
+    print("no pasa nada")
+    func()
+    print("Algo ha pasado")
+  return wrapper
+  
+def hola():
+  print("Hola")
+
+hola_con_decorador = mi_decorador(hola)
+print(hola_con_decorador)
+hola_con_decorador()
+
+
+```
+
+
+
+Referencia
+
+<https://realpython.com/courses/python-decorators-101/>
+
+## 4. ¿Qué método se ejecuta automáticamente cuando se crea una instancia de una clase?
 
 Para poder explicar mejor el método que se ejecuta para crear una instancia a partir de una clase vamos a ver como se define una clase y los diferentes elementos. Para crear una clase en python se usa la palabra reservada **class** seguida por el nombre de la clase con la primera letra en mayuscula.
 
@@ -101,8 +395,99 @@ Referencias
 
 <https://snakebear.science/08-Classes/classes.html>
 
+## 5. ¿Qué es una API?
 
-## 3. ¿Cuáles son los tres verbos de API?
+Application programming interface (API) o interfaz de programación de aplicaciones son mecanismos que permiten a dos componentes de software (aplicaciones) comunicarse entre sí mediante un conjunto de protocolos. Una manera de ver a una API es como un acuerdo donde se define como se deberia comunicarse con la interfaz, con la definición de las solicitudes y respuestas. La documentación de la API describe como los desarrolladores deben estructurar las solicitudes y las respuestas que obtendran.
+
+A la aplicación que envia la solicitud se le conoce como el cliente y a la que responde como el servidor. Con estos terminos se pueden describir diferentes tipos de arquitectura de API:
+
+**API de SOAP**
+
+Estas API utilizan el protocolo simple de acceso a objetos. El cliente y el servidor intercambian mensajes mediante XML. Se trata de una API menos flexible que era más popular en el pasado.
+
+**API de RPC**
+
+Estas API se denominan llamadas a procedimientos remotos. El cliente completa una función (o procedimiento) en el servidor, y el servidor devuelve el resultado al cliente.
+
+**API de REST (Representational State Transfer)**
+
+Estas son las API más populares y flexibles que se encuentran en la web actualmente. El cliente envía las solicitudes (verbos) a través del prótocolo **HTTP** al servidor como datos. El servidor utiliza esta entrada del cliente para iniciar funciones internas y devuelve los datos de salida al cliente tipicamente como una representación **JSON**. 
+
+![Flujo en Rest API](images/api.png)
+
+**API de WebSocket**
+
+La API de WebSocket es otro desarrollo moderno de la API web que utiliza objetos JSON para transmitir datos. La API de WebSocket admite la comunicación bidireccional entre las aplicaciones cliente y el servidor. El servidor puede enviar mensajes de devolución de llamada a los clientes conectados, por lo que es más eficiente que la API de REST.
+
+### ¿Por qué son importantes las APIs en arquitectura de software?
+
+Las APIs permiten que distintos componentes, servicios o incluso aplicaciones:
+
+- Se comuniquen de forma estándar (REST, HTTP, JSON, etc.)
+
+- Funcionan desacoplados o independientes: no necesitan conocer la implementación interna del otro
+
+- Sean reutilizables y combinables en distintos entornos
+
+Para entender mejor como se usan tenemos que comprender sobre diferentes arquitecturas de software Monoliticas y Microservicios.
+
+### Arquitecturas de software Monoliticas vs Microservicios
+
+**Monolitica**. En esta arquitectura todos los elementos (interfase de usuario, base de datos y lógica de negocio) estan bajo una misma aplicación.
+
+
+- Ventajas:
+
+    Simplicidad inicial
+
+    Más fácil de desplegar
+
+- Desventajas:
+
+    Difícil de escalar por partes
+
+    Si algo falla, puede afectar a todo el sistema
+
+    Es dificil de actualizar una funcionalidad sin afectar al resto de elementos
+
+![Representación de arquitectura monolitica](images/monolitica.png)
+
+**Microservicios**. En esta arquitectura se dividen las funcionalidades en múltiples servicios independientes, de manera que como un todo se mantiene la funcionalidad a como se tendria en una arquitectura monolitica pero se da mucha importancia a desacoplar los servicios en pequeñas partes. Las API son la manera en que se comunican estas multiples partes entre si, y en este sentido se tendran muchas veces APIs internas (para los componentes entre si) y APIs externas para usuarios o negocios que quieren integrar de manera más automatica los servicios de una empresa o organización.
+
+- Ventajas:
+
+    Escalás solo lo que necesitás
+
+    Cada servicio puede usar su propio lenguaje o base de datos
+
+    Mejor para equipos grandes, desarrollo paralelo
+
+- Desventajas:
+
+    Más complejidad en integración y despliegue
+
+    Requiere buen manejo de red, monitoreo, fallos
+
+![Representación de arquitectura de microservicios](images/microservicios.png)
+
+Por ejemplo, imaginamos que hay una empresa "ProKlima" que brinda como sercicio a sus clientes predicciones del clima para 30 días con gran precisión. La empresa ha decicido  que quiere usar microservicios por sus ventajas y la naturaleza de la tecnología que usan. En esta empresa el usuario interactua con el frontent que a su vez llama al microservicio de autenticación, de pago, de obtención de datos, de modelación, de control de calidad y de reporte. Cada una de estos microservicios expone una API para comunicarse entre ellas y/o con el frontend.
+
+![Ejemplo de microservicios de ProKlima](images/ejemplo_microservicios.png)
+
+Referencias:
+
+<https://aws.amazon.com/what-is/api/>
+
+<https://blog.postman.com/what-are-http-methods/>
+
+<https://realpython.com/api-integration-in-python/>
+
+<https://medium.com/@shikha.ritu17/rest-api-architecture-6f1c3c99f0d3>
+
+<https://k21academy.com/amazon-web-services/monolithic-vs-microservices-architecture/#6>
+
+
+## 6. ¿Cuáles son los tres verbos de API?
 
 **Rest API's** son las más comunes y estas API usan el **prótocolo HTTP** que contempla varias acciones que se pueden realizar o métodos:
 
@@ -112,7 +497,7 @@ Referencias
 
 **PUT** Se usa para actualizar o reemplazar un recurso con información nueva. Por ejemplo,este método se utiliza cuando actualizamos nuestros datos de contacto en un sitio web y en la solicitud se requiere el identificador del recurso a actualizar.
 
-**DELETE** Se usa para eliminar datos de una base de datos y para ello se envia un identificador del recurso al igual quen en DELETE.
+**DELETE** Se usa para eliminar datos de una base de datos y para ello se envia un identificador del recurso al igual que en POST.
 
 
 Referencias:
@@ -124,7 +509,20 @@ Referencias:
 <https://realpython.com/api-integration-in-python/>
 
 
-## 4. ¿Es MongoDB una base de datos SQL o NoSQL?
+## 7.  ¿Qué es Postman?
+
+Postman es un software y plataforma que nos permite realizar solicitudes a APIs y es una herramienta amigable para que desarrolladores puedan probar, desarrollar y monitorear APIs. Ademas, brinda a equipos otras funcionalidades avanzadas para mantener control de versiones y colaboración en equipos.
+
+A continuación uso la API de <https://api.open-meteo.com/v1/forecast?> para obtener datos de predicción del clima en Gernika.
+
+![Ejemplo de método GET en Postman](images/ejemplo_postman.png)
+
+Referencias
+
+<https://www.postman.com/product/what-is-postman/>
+
+
+## 8. ¿Es MongoDB una base de datos SQL o NoSQL?
 
 MongoDB es una base de datos NoSQL que significa "Not Only SQL" y es un tipo de base de datos que emplea un esquema flexible, permite almacenar, ingerir y recuperar datos no estructurados y semiestructurados. 
 
@@ -157,51 +555,6 @@ Referencias:
 
 <https://memgraph.com/blog/when-to-use-a-nosql-database>
 
-
-
-
-## 5. ¿Qué es una API?
-
-Application programming interface (API) o interfaz de programación de aplicaciones son mecanismos que permiten a dos componentes de software (aplicaciones) comunicarse entre sí mediante un conjunto de protocolos. Una manera de ver a una API es como un acuerdo donde se define como se deberia comunicarse con la interfaz, con la definición de las solicitudes y respuestas. La documentación de la API describe como los desarrolladores deben estructurar las solicitudes y las respuestas que obtendran.
-
-A la aplicación que envia la solicitud se le conoce como el cliente y a la que responde como el servidor. Con estos terminos se pueden describir diferentes tipos de arquitectura:
-
-**API de SOAP**
-
-Estas API utilizan el protocolo simple de acceso a objetos. El cliente y el servidor intercambian mensajes mediante XML. Se trata de una API menos flexible que era más popular en el pasado.
-
-**API de RPC**
-
-Estas API se denominan llamadas a procedimientos remotos. El cliente completa una función (o procedimiento) en el servidor, y el servidor devuelve el resultado al cliente.
-
-**API de REST (Representational State Transfer)**
-
-Estas son las API más populares y flexibles que se encuentran en la web actualmente. El cliente envía las solicitudes al servidor como datos. El servidor utiliza esta entrada del cliente para iniciar funciones internas y devuelve los datos de salida al cliente. 
-
-**API de WebSocket**
-
-La API de WebSocket es otro desarrollo moderno de la API web que utiliza objetos JSON para transmitir datos. La API de WebSocket admite la comunicación bidireccional entre las aplicaciones cliente y el servidor. El servidor puede enviar mensajes de devolución de llamada a los clientes conectados, por lo que es más eficiente que la API de REST.
-
-Referencias:
-
-<https://aws.amazon.com/what-is/api/>
-
-<https://blog.postman.com/what-are-http-methods/>
-
-<https://realpython.com/api-integration-in-python/>
-
-
-## 6.  ¿Qué es Postman?
-
-Postman es un software y plataforma que nos permite realizar solicitudes a APIs y es una herramienta amigable para que desarrolladores puedan probar, desarrollar y monitorear APIs. Ademas, brinda a equipos otras funcionalidades avanzadas para mantener control de versiones y colaboración en equipos.
-
-A continuación uso la API de <https://api.open-meteo.com/v1/forecast?> para obtener datos de predicción del clima en Gernika.
-
-![Ejemplo de método GET en Postman](images/ejemplo_postman.png)
-
-Referencias
-
-<https://www.postman.com/product/what-is-postman/>
 
 ## 7. ¿Qué es el polimorfismo?
 
@@ -237,107 +590,3 @@ Referencia
 
 <https://www.w3schools.com/python/python_polymorphism.asp>
 
-## 8. ¿Qué es un método dunder?
-
-Dunder viene de Double Underscore, es decir que son metodos que usan dos guiones abajo antes y despues (como _ _init _ _). Se les llama tambien metodos mágicos o especiales. En otros lenguajes como Java, se tiene métodos privados o protegidos pero no en python, y se crearon como una manera para que los usuarios y programadores no traten de modificarlo.
-
-Hay de diferentes tipos y la lista es muy larga. Para ver el detalle se puede ir a la [documentación oficial de Python](https://docs.python.org/3/reference/datamodel.html#specialnames). Algunas de los métodos mas comunes son:
-
-![Muestra de métodos dunder (tomado de RealPython)](images/dunder_methods_sample.png)
-
-Por ejemplo, el metodo "__str__" nos da un texto que representa al objeto.
-
-```{python}
-class Galleta:
-  tipo = "Dulce"             
-  forma_predeterminada = "Redonda"
-  
-  def __init__(self,nombre,color,olor,ingredientes):
-    self.nombre = nombre
-    self.color = color
-    self.olor = olor
-    self.ingredientes = ingredientes
-  
-  def __str__(self):
-    return f"Soy {self.nombre} y tengo un sabroso olor a {self.olor}. Deberias de probarme"
-
-galleta_avena = Galleta(nombre="Galleta de avena",
-                       color="claro",
-                       olor="canela y avena",
-                       ingredientes=["harina", "leche","avena","canela","azucar"])
-                      
-print(str(galleta_avena))
-```
-
-
-Referencia
-
-<https://realpython.com/python-magic-methods/>
-
-<https://docs.python.org/3/reference/datamodel.html#specialnames>
-
-## 9. ¿Qué es un decorador de python?
-
-Un decorador en python es una función que toma otra función y extiende o amplia el compartamiento
-sin modificarla explicitamente.
-
-En python, una función puede llamar a otra función.
-Vamos a ver un ejemplo de una función simple:
-
-```{python}
-
-def add_one(number):
-  return number + 1
-
-resultado = add_one(5)
-print(resultado)
-
-resultado2 = add_one(add_one(10))
-print(resultado2)
-
-
-```
-
-Tambien una función puede contener funciones internas. Por ejemplo:
-
-```{python}
-
-def parent():
-  print("printing inside parent function:")
-  
-  def first_child():
-    print("printing from first child function")
-  
-  first_child()
-  
-parent()
-
-
-```
-
-Ahora con estos conceptos podemos entender mejor que es un decorador. En el siguiente ejemplo se puede ver como una funcion puede extender las capacidades de otra función sin modificarla:
-
-```{python}
-
-def mi_decorador(func):
-  def wrapper():
-    print("no pasa nada")
-    func()
-    print("Algo ha pasado")
-  return wrapper
-  
-def hola():
-  print("Hola")
-
-hola_con_decorador = mi_decorador(hola)
-print(hola_con_decorador)
-hola_con_decorador()
-
-
-```
-
-
-
-Referencia
-
-<https://realpython.com/courses/python-decorators-101/>
