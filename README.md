@@ -25,7 +25,7 @@ clases se define el tipo de objeto y recuerda que con la función
 string se obtiene “str”.
 
 ![Ejemplo de clase y objetos como si fueran molde y galletas (Tomado de
-snakebear.science)](images/cookie_template.png)
+snakebear.science)](cuestionario/images/cookie_template.png)
 
 ``` python
 my_cat = "Nala"
@@ -266,7 +266,7 @@ colaboración en equipos.
 A continuación uso la API de <https://api.open-meteo.com/v1/forecast?>
 para obtener datos de predicción del clima en Gernika.
 
-![Ejemplo de método GET en Postman](images/ejemplo_postman.png)
+![Ejemplo de método GET en Postman](cuestionario/images/ejemplo_postman.png)
 
 Referencias
 
@@ -327,7 +327,7 @@ Python](https://docs.python.org/3/reference/datamodel.html#specialnames).
 Algunas de los métodos mas comunes son:
 
 ![Muestra de métodos dunder (tomado de
-RealPython)](images/dunder_methods_sample.png)
+RealPython)](cuestionario/images/dunder_methods_sample.png)
 
 Por ejemplo, el metodo “**str**” nos da un texto que representa al
 objeto.
