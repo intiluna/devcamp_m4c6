@@ -239,7 +239,7 @@ Python](https://docs.python.org/3/reference/datamodel.html#specialnames).
 Algunas de los métodos mas comunes son:
 
 ![Muestra de métodos dunder (tomado de
-RealPython)](images/dunder_methods_sample.png)
+RealPython)](cuestionario/images/dunder_methods_sample.png)
 
 Por ejemplo, el metodo “**str**” nos da un texto que representa al
 objeto.
@@ -471,7 +471,7 @@ prótocolo **HTTP** al servidor como datos. El servidor utiliza esta
 entrada del cliente para iniciar funciones internas y devuelve los datos
 de salida al cliente tipicamente como una representación **JSON**.
 
-![Flujo en Rest API](images/api.png)
+![Flujo en Rest API](cuestionario/images/api.png)
 
 **API de WebSocket**
 
@@ -517,7 +517,7 @@ aplicación.
   Es dificil de actualizar una funcionalidad sin afectar al resto de
   elementos
 
-![Representación de arquitectura monolitica](images/monolitica.png)
+![Representación de arquitectura monolitica](cuestionario/images/monolitica.png)
 
 **Microservicios**. En esta arquitectura se dividen las funcionalidades
 en múltiples servicios independientes, de manera que como un todo se
@@ -544,7 +544,7 @@ servicios de una empresa o organización.
   Requiere buen manejo de red, monitoreo, fallos
 
 ![Representación de arquitectura de
-microservicios](images/microservicios.png)
+microservicios](cuestionario/images/microservicios.png)
 
 Por ejemplo, imaginamos que hay una empresa “ProKlima” que brinda como
 sercicio a sus clientes predicciones del clima para 30 días con gran
@@ -556,7 +556,7 @@ control de calidad y de reporte. Cada una de estos microservicios expone
 una API para comunicarse entre ellas y/o con el frontend.
 
 ![Ejemplo de microservicios de
-ProKlima](images/ejemplo_microservicios.png)
+ProKlima](cuestionario/images/ejemplo_microservicios.png)
 
 Referencias:
 
@@ -612,7 +612,7 @@ colaboración en equipos.
 A continuación uso la API de <https://api.open-meteo.com/v1/forecast?>
 para obtener datos de predicción del clima en Gernika.
 
-![Ejemplo de método GET en Postman](images/ejemplo_postman.png)
+![Ejemplo de método GET en Postman](cuestionario/images/ejemplo_postman.png)
 
 Referencias
 
