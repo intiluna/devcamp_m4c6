@@ -134,78 +134,56 @@ Referencias
 
 <https://snakebear.science/08-Classes/classes.html>
 
-## 3. ¿Cuáles son los tres verbos de API?
+## 3. ¿Qué es un método dunder?
 
-**Rest API’s** son las más comunes y estas API usan el **prótocolo
-HTTP** que contempla varias acciones que se pueden realizar o métodos:
+Dunder viene de Double Underscore, es decir que son metodos que usan dos
+guiones abajo antes y despues (como \_ *init * \_). Se les llama tambien
+metodos mágicos o especiales. En otros lenguajes como Java, se tiene
+métodos privados o protegidos pero no en python, y se crearon como una
+manera para que los usuarios y programadores no traten de modificarlo.
 
-**GET**. Se usa para leer información u obtener información de un
-recurso en un servidor sin modificarlo. Por ejemplo, podemos usar un GET
-para obtener del un API del servicio meteorologico, el prónostico del
-clima para el día de mañana.
+Hay de diferentes tipos y la lista es muy larga. Para ver el detalle se
+puede ir a la [documentación oficial de
+Python](https://docs.python.org/3/reference/datamodel.html#specialnames).
+Algunas de los métodos mas comunes son:
 
-**POST**. Se usa para crear un nuevo recurso o registro. Por ejemplo,
-cuando creamos una cuenta en una web app, por detras el backend realiza
-una solicitud de POST a la base de datos en el servidor con nuestros
-datos para crear un nuevo usuario.
+![Muestra de métodos dunder (tomado de
+RealPython)](cuestionario/images/dunder_methods_sample.png)
 
-**PUT** Se usa para actualizar o reemplazar un recurso con información
-nueva. Por ejemplo,este método se utiliza cuando actualizamos nuestros
-datos de contacto en un sitio web y en la solicitud se requiere el
-identificador del recurso a actualizar.
+Por ejemplo, el metodo “**str**” nos da un texto que representa al
+objeto.
 
-**DELETE** Se usa para eliminar datos de una base de datos y para ello
-se envia un identificador del recurso al igual quen en DELETE.
+``` python
+class Galleta:
+  tipo = "Dulce"             
+  forma_predeterminada = "Redonda"
+  
+  def __init__(self,nombre,color,olor,ingredientes):
+    self.nombre = nombre
+    self.color = color
+    self.olor = olor
+    self.ingredientes = ingredientes
+  
+  def __str__(self):
+    return f"Soy {self.nombre} y tengo un sabroso olor a {self.olor}. Deberias de probarme"
 
-Referencias:
+galleta_avena = Galleta(nombre="Galleta de avena",
+                       color="claro",
+                       olor="canela y avena",
+                       ingredientes=["harina", "leche","avena","canela","azucar"])
+                      
+print(str(galleta_avena))
+```
 
-<https://aws.amazon.com/what-is/api/>
+    Soy Galleta de avena y tengo un sabroso olor a canela y avena. Deberias de probarme
 
-<https://blog.postman.com/what-are-http-methods/>
+Referencia
 
-<https://realpython.com/api-integration-in-python/>
+<https://realpython.com/python-magic-methods/>
 
-## 4. ¿Es MongoDB una base de datos SQL o NoSQL?
+<https://docs.python.org/3/reference/datamodel.html#specialnames>
 
-MongoDB es una base de datos NoSQL que significa “Not Only SQL” y es un
-tipo de base de datos que emplea un esquema flexible, permite almacenar,
-ingerir y recuperar datos no estructurados y semiestructurados.
-
-En dependencia del caso de uso, se debe de elegir un tipo de base de
-datos u otra. En general se usan las bases de datos relacionales pero
-hay casos donde no son la mejor alternativa.
-
-Algunas propiedades de las bases NoSQL les hacen aptos para: - Hay
-muchos datos semiestructurados o no estructurados - Se requiere alta
-escalabilidad - No se conoce de antemano el esquema y/o requiere
-flexibilidad - Las relaciones entre tablas o entidades no es tan
-importante
-
-### Tipos de bases de datos NoSQL
-
-Dentro de las bases de datos NoSQL se encuentran:
-
-**Documentos**.Almacena datos en objetos similares a JSON llamados
-documentos y al grupo se le conoce como colección.
-
-**Clave-Valor**. Se usan pares clave valor siendo la clave unica.
-
-**Familia de columnas**. Se organiza en columnas en lugar de filas.
-
-**Datos de grafos**.Se almacenan en nodos y bordes En las bases de datos
-SQL o bases de datos relacionales se tiene un esquema rigido tabular y
-se puede analizar usando lenguaje SQL. En este tipo de bases de datos,
-lo primordial es la relación entre muchas entidades o tablas.
-
-Referencias:
-
-<https://www.mongodb.com/es/resources/basics/databases/nosql-explained/nosql-vs-sql>
-
-<https://sqlinsix.medium.com/when-to-use-sql-or-nosql-b50d4a52c157>
-
-<https://memgraph.com/blog/when-to-use-a-nosql-database>
-
-## 5. ¿Qué es una API?
+## 4. ¿Qué es una API?
 
 Application programming interface (API) o interfaz de programación de
 aplicaciones son mecanismos que permiten a dos componentes de software
@@ -254,6 +232,36 @@ Referencias:
 <https://blog.postman.com/what-are-http-methods/>
 
 <https://realpython.com/api-integration-in-python/>
+## 5. ¿Cuáles son los tres verbos de API?
+
+**Rest API’s** son las más comunes y estas API usan el **prótocolo
+HTTP** que contempla varias acciones que se pueden realizar o métodos:
+
+**GET**. Se usa para leer información u obtener información de un
+recurso en un servidor sin modificarlo. Por ejemplo, podemos usar un GET
+para obtener del un API del servicio meteorologico, el prónostico del
+clima para el día de mañana.
+
+**POST**. Se usa para crear un nuevo recurso o registro. Por ejemplo,
+cuando creamos una cuenta en una web app, por detras el backend realiza
+una solicitud de POST a la base de datos en el servidor con nuestros
+datos para crear un nuevo usuario.
+
+**PUT** Se usa para actualizar o reemplazar un recurso con información
+nueva. Por ejemplo,este método se utiliza cuando actualizamos nuestros
+datos de contacto en un sitio web y en la solicitud se requiere el
+identificador del recurso a actualizar.
+
+**DELETE** Se usa para eliminar datos de una base de datos y para ello
+se envia un identificador del recurso al igual quen en DELETE.
+
+Referencias:
+
+<https://aws.amazon.com/what-is/api/>
+
+<https://blog.postman.com/what-are-http-methods/>
+
+<https://realpython.com/api-integration-in-python/>
 
 ## 6. ¿Qué es Postman?
 
@@ -272,7 +280,51 @@ Referencias
 
 <https://www.postman.com/product/what-is-postman/>
 
-## 7. ¿Qué es el polimorfismo?
+
+## 7. ¿Es MongoDB una base de datos SQL o NoSQL?
+
+MongoDB es una base de datos NoSQL que significa “Not Only SQL” y es un
+tipo de base de datos que emplea un esquema flexible, permite almacenar,
+ingerir y recuperar datos no estructurados y semiestructurados.
+
+En dependencia del caso de uso, se debe de elegir un tipo de base de
+datos u otra. En general se usan las bases de datos relacionales pero
+hay casos donde no son la mejor alternativa.
+
+Algunas propiedades de las bases NoSQL les hacen aptos para: - Hay
+muchos datos semiestructurados o no estructurados - Se requiere alta
+escalabilidad - No se conoce de antemano el esquema y/o requiere
+flexibilidad - Las relaciones entre tablas o entidades no es tan
+importante
+
+### Tipos de bases de datos NoSQL
+
+Dentro de las bases de datos NoSQL se encuentran:
+
+**Documentos**.Almacena datos en objetos similares a JSON llamados
+documentos y al grupo se le conoce como colección.
+
+**Clave-Valor**. Se usan pares clave valor siendo la clave unica.
+
+**Familia de columnas**. Se organiza en columnas en lugar de filas.
+
+**Datos de grafos**.Se almacenan en nodos y bordes En las bases de datos
+SQL o bases de datos relacionales se tiene un esquema rigido tabular y
+se puede analizar usando lenguaje SQL. En este tipo de bases de datos,
+lo primordial es la relación entre muchas entidades o tablas.
+
+Referencias:
+
+<https://www.mongodb.com/es/resources/basics/databases/nosql-explained/nosql-vs-sql>
+
+<https://sqlinsix.medium.com/when-to-use-sql-or-nosql-b50d4a52c157>
+
+<https://memgraph.com/blog/when-to-use-a-nosql-database>
+
+
+
+
+## 8. ¿Qué es el polimorfismo?
 
 En python, polimorfismo significa que un método, función u operador con
 el mismo nombre puede tomar diferentes formas o comportamientos.
@@ -313,54 +365,7 @@ Referencia
 
 <https://www.w3schools.com/python/python_polymorphism.asp>
 
-## 8. ¿Qué es un método dunder?
 
-Dunder viene de Double Underscore, es decir que son metodos que usan dos
-guiones abajo antes y despues (como \_ *init * \_). Se les llama tambien
-metodos mágicos o especiales. En otros lenguajes como Java, se tiene
-métodos privados o protegidos pero no en python, y se crearon como una
-manera para que los usuarios y programadores no traten de modificarlo.
-
-Hay de diferentes tipos y la lista es muy larga. Para ver el detalle se
-puede ir a la [documentación oficial de
-Python](https://docs.python.org/3/reference/datamodel.html#specialnames).
-Algunas de los métodos mas comunes son:
-
-![Muestra de métodos dunder (tomado de
-RealPython)](cuestionario/images/dunder_methods_sample.png)
-
-Por ejemplo, el metodo “**str**” nos da un texto que representa al
-objeto.
-
-``` python
-class Galleta:
-  tipo = "Dulce"             
-  forma_predeterminada = "Redonda"
-  
-  def __init__(self,nombre,color,olor,ingredientes):
-    self.nombre = nombre
-    self.color = color
-    self.olor = olor
-    self.ingredientes = ingredientes
-  
-  def __str__(self):
-    return f"Soy {self.nombre} y tengo un sabroso olor a {self.olor}. Deberias de probarme"
-
-galleta_avena = Galleta(nombre="Galleta de avena",
-                       color="claro",
-                       olor="canela y avena",
-                       ingredientes=["harina", "leche","avena","canela","azucar"])
-                      
-print(str(galleta_avena))
-```
-
-    Soy Galleta de avena y tengo un sabroso olor a canela y avena. Deberias de probarme
-
-Referencia
-
-<https://realpython.com/python-magic-methods/>
-
-<https://docs.python.org/3/reference/datamodel.html#specialnames>
 
 ## 9. ¿Qué es un decorador de python?
 
